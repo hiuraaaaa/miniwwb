@@ -4,53 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mini VSCode Browser</title>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-
 <style>
-/* --- Global --- */
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Fira Code', monospace; }
-body { display: flex; flex-direction: column; height: 100vh; background: #1e1e1e; color: #ddd; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", sans-serif; }
+body, html { height: 100%; background: #1e1e1e; color: #ddd; }
+header { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 1rem; background: #252526; border-bottom: 1px solid #333; }
+header span { font-weight: bold; color: #fff; }
+header button, header select { margin-left: 0.5rem; padding: 0.3rem 0.6rem; background: #0e639c; border: none; color: #fff; border-radius: 3px; cursor: pointer; }
+header button:hover, header select:hover { background: #1177bb; }
 
-/* --- Header --- */
-header { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem; background: #252526; color: #fff; border-bottom: 1px solid #333; }
-header span { font-weight: 500; font-size: 1.1rem; }
-header #topControls button, header #topControls select { margin-left: 0.5rem; padding: 0.3rem 0.7rem; background: #3c3c3c; color: #fff; border: none; border-radius: 3px; cursor: pointer; }
-header #topControls button:hover, header #topControls select:hover { background: #505050; }
+.container { display: flex; height: calc(100% - 50px); }
 
-/* --- Container --- */
-.container { flex: 1; display: flex; overflow: hidden; }
+.sidebar { width: 250px; background: #252526; border-right: 1px solid #333; overflow-y: auto; transition: width 0.2s; }
+.sidebar h3 { padding: 0.5rem; border-bottom: 1px solid #333; color: #fff; }
+.sidebar ul { list-style: none; }
+.sidebar li { padding: 0.4rem 0.8rem; cursor: pointer; border-radius: 3px; }
+.sidebar li:hover { background: #0e639c; color: #fff; }
 
-/* --- Sidebar --- */
-.sidebar { width: 220px; background: #252526; border-right: 1px solid #333; display: flex; flex-direction: column; }
-.sidebar h3 { padding: 0.7rem 1rem; border-bottom: 1px solid #333; }
-.sidebar ul { list-style: none; flex: 1; overflow-y: auto; }
-.sidebar ul li { padding: 0.5rem 1rem; cursor: pointer; border-bottom: 1px solid #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sidebar ul li:hover { background: #3c3c3c; }
-.sidebar ul li.active { background: #0e639c; }
-
-/* --- Main --- */
 .main { flex: 1; display: flex; flex-direction: column; position: relative; }
-#fileEditor { flex: 1; padding: 1rem; background: #1e1e1e; color: #d4d4d4; overflow: auto; outline: none; border: none; white-space: pre; font-size: 14px; line-height: 1.4; }
-#dropZone { position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 2px dashed #555; display: flex; align-items: center; justify-content: center; color: #555; font-size: 1rem; pointer-events: none; transition: background 0.3s, color 0.3s; }
-#dropZone.dragover { background: rgba(255,255,255,0.05); color: #fff; }
+#fileEditor { flex: 1; padding: 1rem; outline: none; background: #1e1e1e; color: #d4d4d4; overflow: auto; font-family: "Fira Code", monospace; font-size: 14px; }
+#dropZone { padding: 0.5rem; background: #333; text-align: center; color: #aaa; border-top: 1px solid #444; cursor: pointer; }
+#dropZone.dragover { background: #444; color: #fff; }
 
-/* --- Scrollbars --- */
-.sidebar ul::-webkit-scrollbar, .main::-webkit-scrollbar { width: 8px; }
-.sidebar ul::-webkit-scrollbar-thumb, .main::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
-.sidebar ul::-webkit-scrollbar-track, .main::-webkit-scrollbar-track { background: #1e1e1e; }
-
-/* --- Responsive --- */
-@media (max-width: 768px) {
-  .container { flex-direction: column; }
-  .sidebar { width: 100%; height: 150px; overflow-x: auto; display: flex; flex-direction: row; }
-  .sidebar ul { display: flex; flex-direction: row; }
-  .sidebar ul li { border-bottom: none; border-right: 1px solid #333; }
-  .main { flex: 1; }
+@media(max-width: 768px) {
+  .sidebar { width: 180px; }
+  header { flex-wrap: wrap; }
 }
 </style>
-
 </head>
 <body>
 
@@ -62,6 +41,7 @@ header #topControls button:hover, header #topControls select:hover { background:
     <button id="addFileBtn">Add File</button>
     <button id="saveFileBtn">Save / Commit</button>
     <button id="deleteFileBtn">Delete File</button>
+    <button id="deployVercelBtn">Deploy Vercel</button>
   </div>
 </header>
 
@@ -72,12 +52,11 @@ header #topControls button:hover, header #topControls select:hover { background:
   </div>
 
   <div class="main">
-    <pre><code id="fileEditor" contenteditable="true"></code></pre>
-    <div id="dropZone">Drag & Drop files here or click to create new file</div>
+    <div id="fileEditor" contenteditable="true" spellcheck="false"></div>
+    <div id="dropZone">Drag & Drop files here or click to create</div>
   </div>
 </div>
 
 <script type="module" src="main.js"></script>
-
 </body>
 </html>
