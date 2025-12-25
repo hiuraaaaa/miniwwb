@@ -8,7 +8,7 @@ const GITHUB_TOKEN = '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';
 const GITHUB_USERNAME = 'hiuraaaaa''
 
 const VERCEL_TOKEN = 'F2GQrf2jjF98CEhUWCpZRzq3';
-const VERCEL_PROJECT_ID = 'proj_XXXXXXXXXXXX';
+const VERCEL_PROJECT_ID = 'prj_zJLqexWAsVLlu0PSfjXO8MZZEWwr';
 const VERCEL_TEAM_ID = ''; // optional, kosong jika personal
 
 // ==========================================
